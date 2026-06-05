@@ -17,7 +17,7 @@ defmodule ProtoValidator.Protoc.CLI do
     Protobuf.load_extensions()
 
     bin = IO.binread(:eof)
-    request = Protobuf.Decoder.decode(bin, Google.Protobuf.Compiler.CodeGeneratorRequest)
+    request = Google.Protobuf.Compiler.CodeGeneratorRequest.decode(bin)
 
     ctx =
       Protobuf.Protoc.CLI.find_types(
