@@ -38,7 +38,7 @@ defmodule ProtoValidator.Protoc.Utils do
   def get_rule_str(nil), do: nil
 
   def get_rule_str(%_{} = rules) when is_map(rules) do
-    rules |> Map.from_struct() |> Map.drop([:__unknown_fields__]) |> get_rule_str()
+    rules |> Map.from_struct() |> Map.drop([:__unknown_fields__, :__protobuf__]) |> get_rule_str()
   end
 
   def get_rule_str(rules) when is_map(rules) do

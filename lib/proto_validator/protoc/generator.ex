@@ -63,7 +63,9 @@ defmodule ProtoValidator.Protoc.Generator do
     # FIXME resolve nested message fqn
     fqn = ctx.package <> "." <> desc.name
     module_name = Map.fetch!(type_mappings, fqn)
-    {module_name, "ProtoValidator.Gen.#{module_name}"}
+    # Starting from protobuf 0.17.0, the module_name is stored in string, not in module atom.
+    module_name_atom = if is_binary(module_name), do: :"Elixir.#{module_name}", else: module_name
+    {module_name_atom, "ProtoValidator.Gen.#{module_name}"}
   end
 
   defp get_options_str(options) do
